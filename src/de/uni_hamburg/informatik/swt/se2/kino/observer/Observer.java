@@ -1,5 +1,11 @@
 package de.uni_hamburg.informatik.swt.se2.kino.observer;
 
+/**
+ * @author Lieven Petersen
+ * 
+ * Interface für Observer-Klassen
+ */
+
 public interface Observer {
 	
 	/**
