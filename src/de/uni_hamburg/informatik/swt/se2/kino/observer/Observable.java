@@ -23,7 +23,7 @@ public abstract class Observable {
 	/**
 	 * Kann nach einer wichtigen aenderung aufgerufen werden um alle observer zu informieren
 	 */
-	void benachrichtigeUeberAenderung()
+	protected void benachrichtigeUeberAenderung()
 	{
 		for(Observer observer: _observer)
 		{
