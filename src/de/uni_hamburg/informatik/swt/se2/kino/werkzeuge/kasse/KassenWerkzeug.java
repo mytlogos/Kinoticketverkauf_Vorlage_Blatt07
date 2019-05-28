@@ -7,6 +7,8 @@ import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Datum;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Kino;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Tagesplan;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
+import de.uni_hamburg.informatik.swt.se2.kino.observer.Observable;
+import de.uni_hamburg.informatik.swt.se2.kino.observer.Observer;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.datumsauswaehler.DatumAuswaehlWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.platzverkauf.PlatzVerkaufsWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.vorstellungsauswaehler.VorstellungsAuswaehlWerkzeug;
@@ -19,7 +21,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.vorstellungsauswaehler.V
  * @author SE2-Team
  * @version SoSe 2018
  */
-public class KassenWerkzeug
+public class KassenWerkzeug implements Observer
 {
     // Das Material dieses Werkzeugs
     private Kino _kino;
@@ -49,6 +51,11 @@ public class KassenWerkzeug
         _platzVerkaufsWerkzeug = new PlatzVerkaufsWerkzeug();
         _datumAuswaehlWerkzeug = new DatumAuswaehlWerkzeug();
         _vorstellungAuswaehlWerkzeug = new VorstellungsAuswaehlWerkzeug();
+        
+        // Observer einrichten
+        
+        _datumAuswaehlWerkzeug.registriere(this);
+        _vorstellungAuswaehlWerkzeug.registriere(this);
 
         // UI erstellen (mit eingebetteten UIs der direkten Subwerkzeuge)
         _ui = new KassenWerkzeugUI(_platzVerkaufsWerkzeug.getUIPanel(),
@@ -119,4 +126,19 @@ public class KassenWerkzeug
     {
         return _vorstellungAuswaehlWerkzeug.getAusgewaehlteVorstellung();
     }
+
+	@Override
+	public void reagiereAufAenderung(Observable obj) {
+		
+		// unterscheidung welches subverkzeug sich geaendert hat
+		if(obj == _vorstellungAuswaehlWerkzeug)
+		{
+			setzeAusgewaehlteVorstellung();
+		}
+		else if(obj == _datumAuswaehlWerkzeug)
+		{
+			setzeTagesplanFuerAusgewaehltesDatum();
+		}
+		
+	}
 }
