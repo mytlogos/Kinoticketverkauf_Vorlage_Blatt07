@@ -26,17 +26,18 @@ public abstract class Observable {
 	{
 		//falls die observer-liste nicht initialisiert ist (so spart man sich den konstruktor)
 		if (_observer == null)
+		{
 			_observer = new LinkedList<Observer>();
+		}
 		
 		if (observer != null)
+		{
 			_observer.add(observer);
+		}
 	}
 	
 	/**
 	 * Kann nach einer wichtigen aenderung aufgerufen werden um alle observer zu informieren
-	 * 
-	 * @require _observer != null
-	 * 
 	 */
 	protected void benachrichtigeUeberAenderung()
 	{
