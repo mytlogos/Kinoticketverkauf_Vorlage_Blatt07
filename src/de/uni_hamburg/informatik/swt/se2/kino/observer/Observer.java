@@ -11,6 +11,8 @@ public interface Observer {
 	/**
 	 * wird aufgerufen, falls in einer beobachteten klasse etwas wichtiges passiert
 	 * @param obj Objekt der beobachteten Klasse
+	 * 
+	 * @require obj != null
 	 */
 	void reagiereAufAenderung(Observable obj);
 	

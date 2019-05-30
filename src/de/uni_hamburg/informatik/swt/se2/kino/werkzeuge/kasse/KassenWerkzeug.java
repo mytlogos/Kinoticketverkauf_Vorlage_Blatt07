@@ -130,6 +130,9 @@ public class KassenWerkzeug implements Observer
 	@Override
 	public void reagiereAufAenderung(Observable obj) {
 		
+		assert obj != null: "Vorbedingung verletzt: obj != null; "
+				+ "\nEinem Observer wurde eine leere Referenz zu seinem beobachtetem Objekt uebergeben" ;
+		
 		// unterscheidung welches subverkzeug sich geaendert hat
 		if(obj == _vorstellungAuswaehlWerkzeug)
 		{
