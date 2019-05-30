@@ -3,6 +3,12 @@ package de.uni_hamburg.informatik.swt.se2.kino.observer;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Lieven Petersen
+ *
+ * Eine Überklasse fur Klassen die von Observern beobachtet werden sollen.
+ */
+
 public abstract class Observable {
 	
 	private List<Observer> _observer;
@@ -10,14 +16,24 @@ public abstract class Observable {
 	/**
 	 * mit dieser Methode können sich neue Observer bei dieser Klasse anmelden
 	 * @param observer Die Klasse die ueber aenderungen in dieser Klasse informiert werden soll
+	 * 
+	 * @require observer != null
+	 * 
+	 * @ensure _observer != null
+	 * @ensure _observer.contains(observer)
 	 */
 	public void registriere(Observer observer)
 	{
 		//falls die observer-liste nicht initialisiert ist (so spart man sich den konstruktor)
 		if (_observer == null)
+		{
 			_observer = new LinkedList<Observer>();
+		}
 		
-		_observer.add(observer);
+		if (observer != null)
+		{
+			_observer.add(observer);
+		}
 	}
 	
 	/**
@@ -25,9 +41,12 @@ public abstract class Observable {
 	 */
 	protected void benachrichtigeUeberAenderung()
 	{
-		for(Observer observer: _observer)
+		if (_observer != null)
 		{
-			observer.reagiereAufAenderung(this);
+			for(Observer observer: _observer)
+			{
+				observer.reagiereAufAenderung(this);
+			}
 		}
 	}
 }
