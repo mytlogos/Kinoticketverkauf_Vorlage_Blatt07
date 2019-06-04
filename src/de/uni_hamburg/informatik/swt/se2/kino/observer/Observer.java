@@ -5,7 +5,6 @@ package de.uni_hamburg.informatik.swt.se2.kino.observer;
  * 
  * Interface für Observer-Klassen
  */
-
 public interface Observer {
 	
 	/**
